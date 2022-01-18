@@ -1,0 +1,20 @@
+{
+	"name": "express_boot",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon index.js"
+	},
+	"author": "Shuaib",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.2",
+		"express-promise-router": "^4.1.1",
+		"morgan": "^1.10.0",
+		"multer": "^1.4.4",
+		"nodemon": "^2.0.15",
+		"oracledb": "^5.3.0"
+	}
+}
