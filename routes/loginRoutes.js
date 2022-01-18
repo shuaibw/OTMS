@@ -2,7 +2,7 @@ const e = require('express');
 const express = require('express');
 const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OBJECT;
-
+oracledb.autoCommit = true;
 let connection;
 
 const executeQuery = async (query, params) => {
