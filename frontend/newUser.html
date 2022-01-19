@@ -62,7 +62,7 @@
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <h3 class="register-heading">Register as a Student</h3>
-              <form action="http://localhost:3000/registerStudent" method="POST">
+              <form action="http://localhost:3000/register/student" method="POST">
                 <div class="row register-form">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -129,24 +129,25 @@
             </div>
             <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <h3 class="register-heading">Register as an Instructor</h3>
-              <form action="http://localhost:3000/registerTutor" method="POST">
+              <form action="http://localhost:3000/register/instructor" method="POST">
                 <div class="row register-form">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="First Name *" value="" />
+                      <input type="text" class="form-control" name="full_name" placeholder="Full Name *" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Last Name *" value="" />
+                      <input type="text" class="form-control" name='username' placeholder="UserName *" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="email" class="form-control" placeholder="Email *" value="" />
+                      <input type="email" class="form-control" name="email" placeholder="Email *" value="" />
                     </div>
                     <div class="form-group">
                       <input
                         type="text"
-                        maxlength="10"
-                        minlength="10"
+                        maxlength="11"
+                        minlength="11"
                         class="form-control"
+                        name="inst_phone"
                         placeholder="Phone *"
                         value=""
                       />
@@ -154,10 +155,10 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Password *" value="" />
+                      <input type="password" class="form-control" name="password" placeholder="Password *" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Confirm Password *" value="" />
+                      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password *" value="" />
                     </div>
                     <div class="form-group">
                       <select class="form-control">
