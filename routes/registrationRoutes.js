@@ -1,26 +1,6 @@
 const express = require('express');
-const oracledb = require('oracledb');
-oracledb.outFormat = oracledb.OBJECT;
-oracledb.autoCommit = true;
-let connection;
+const executeQuery = require('../models/executeQuery');
 
-const executeQuery = async (query, params) => {
-  if (!connection) {
-    connection = await oracledb.getConnection({
-      user: 'C##SHUAIB',
-      password: 'hr',
-      connectionString: 'localhost/orcl',
-    });
-  }
-  try {
-    const result = await connection.execute(query, params);
-    console.log(result);
-    return result;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
-};
 const checkPassword = (password, confirm_password) => {
   return password === confirm_password;
 };

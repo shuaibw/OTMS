@@ -1,25 +1,6 @@
 const e = require('express');
 const express = require('express');
-const oracledb = require('oracledb');
-oracledb.outFormat = oracledb.OBJECT;
-oracledb.autoCommit = true;
-let connection;
-
-const executeQuery = async (query, params) => {
-  if (!connection) {
-    connection = await oracledb.getConnection({
-      user: 'C##SHUAIB',
-      password: 'hr',
-      connectionString: 'localhost/orcl',
-    });
-  }
-  try {
-    let result = await connection.execute(query, params);
-    return result.rows.length == 0 ? 0 : result.rows[0].PASSWORD;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const executeQuery = require('../models/executeQuery');
 
 const router = express.Router();
 
@@ -31,8 +12,9 @@ router
   .post(async (req, res) => {
     username = req.body.login[0];
     password = req.body.login[1];
-    passwordQuery = `SELECT PASSWORD FROM STUDENT WHERE USERNAME='${username}'`;
-    passCompare = await executeQuery(passwordQuery, []);
+    passwordQuery = `SELECT PASSWORD FROM STUDENT WHERE USERNAME=:username`;
+    result = await executeQuery(passwordQuery, [username]);
+    passCompare = result.rows.length != 0 ? result.rows[0].PASSWORD : -1;
     console.log(passCompare);
     if (passCompare === password) {
       res.status(200).redirect('http://localhost:5501/frontend/home.html');
