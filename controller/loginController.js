@@ -3,7 +3,7 @@ const executeQuery = require('../models/executeQuery');
 exports.handleLogin = async (req, res) => {
   username = req.body.login[0];
   password = req.body.login[1];
-  passwordQuery = `SELECT PASSWORD FROM STUDENT WHERE USERNAME=:username`;
+  passwordQuery = `SELECT PASSWORD FROM STUDENTS WHERE USERNAME=:username`;
   result = await executeQuery(passwordQuery, [username]);
   passCompare = result.rows.length != 0 ? result.rows[0].PASSWORD : -1;
   console.log(passCompare);

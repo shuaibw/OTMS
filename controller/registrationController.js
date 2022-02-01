@@ -8,7 +8,7 @@ exports.registerIntructor = async (req, res) => {
   if (!checkPassword(regData.password, regData.confirm_password)) {
     res.status(204).send();
   }
-  regQuery = `INSERT INTO INSTRUCTOR VALUES(NULL, :full_name, :email, :username, :password)`;
+  regQuery = `INSERT INTO INSTRUCTORS VALUES(NULL, :full_name, :email, :username, :password)`;
   try {
     const success = await executeQuery(regQuery, [
       regData.full_name,
@@ -28,7 +28,7 @@ exports.registerStudent = async (req, res) => {
   if (!checkPassword(regData.password, regData.confirm_password)) {
     res.status(204).send();
   }
-  regQuery = `INSERT INTO STUDENT VALUES(NULL, :full_name, :email, :username, :password)`;
+  regQuery = `INSERT INTO STUDENTS VALUES(NULL, :full_name, :email, :username, :password)`;
   try {
     const success = await executeQuery(regQuery, [
       regData.full_name,
