@@ -1,4 +1,13 @@
 {
-  "singleQuote": true,
-  "printWidth": 120
+    "singleQuote": true,
+    "printWidth": 120,
+    "tabWidth": 4,
+    "overrides": [
+        {
+            "files": "*.html",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }

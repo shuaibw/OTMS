@@ -25,12 +25,7 @@
           <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
           <h3>Welcome to</h3>
           <p id="sphuron">স্ফূরণ</p>
-          <input
-            onclick='location.href="http://127.0.0.1:5501/frontend/index.html";'
-            type="submit"
-            name=""
-            value="Login"
-          /><br />
+          <input onclick='location.href="http://localhost:3000/login";' type="submit" name="" value="Login" /><br />
         </div>
         <div class="col-md-9 register-right">
           <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -66,22 +61,19 @@
                 <div class="row register-form">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="text" class="form-control" name="full_name" placeholder="Full Name *" value="" />
+                      <input type="text" class="form-control" name="fullname" placeholder="Full Name" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" name="username" placeholder="UserName *" value="" />
+                      <input type="text" class="form-control" name="username" placeholder="UserName" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" name="password" placeholder="Password *" value="" />
+                      <input type="password" class="form-control" name="password" placeholder="Password" value="" />
                     </div>
                     <div class="form-group">
-                      <input
-                        type="password"
-                        class="form-control"
-                        name="confirm_password"
-                        placeholder="Confirm Password *"
-                        value=""
-                      />
+                      <input type="email" class="form-control" name="email" placeholder="Your Email" value="" />
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="location" placeholder="Location" value="" />
                     </div>
                     <div class="form-group">
                       <div class="maxl">
@@ -98,29 +90,59 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input type="email" class="form-control" name="email" placeholder="Your Email *" value="" />
+                      <input type="text" class="form-control" name="school" placeholder="School" value="" />
                     </div>
                     <div class="form-group">
                       <input
                         type="text"
                         minlength="11"
                         maxlength="11"
-                        name="txtEmpPhone"
+                        name="phone"
                         class="form-control"
-                        placeholder="Your Phone *"
+                        placeholder="Phone (11 digit)"
                         value=""
                       />
                     </div>
                     <div class="form-group">
-                      <select class="form-control">
-                        <option class="hidden" selected disabled>Please select your Sequrity Question</option>
-                        <option>What is your Birthdate?</option>
-                        <option>What is Your old Phone Number</option>
-                        <option>What is your Pet Name?</option>
+                      <select class="form-control" name="grade">
+                        <option class="hidden" selected disabled>Please select your grade</option>
+                        <option>O Level</option>
+                        <option>A Level</option>
+                        <option>SSC</option>
+                        <option>HSC</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Enter Your Answer *" value="" />
+                      <select class="form-control" name="faculty">
+                        <option class="hidden" selected disabled>Please select your faculty</option>
+                        <option>Science</option>
+                        <option>Commerce</option>
+                        <option>Arts</option>
+                        <option>Humanities</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        minlength="2"
+                        maxlength="3"
+                        name="age"
+                        class="form-control"
+                        placeholder="Your Age"
+                        value=""
+                      />
+                    </div>
+                    <div class="form-group">
+                      <div class="maxl">
+                        <label class="radio inline">
+                          <input type="radio" name="version" value="EV" checked />
+                          <span> English Version </span>
+                        </label>
+                        <label class="radio inline">
+                          <input type="radio" name="version" value="BV" />
+                          <span>Bangla Version </span>
+                        </label>
+                      </div>
                     </div>
                     <input type="submit" class="btnRegister" value="Register" />
                   </div>
@@ -136,7 +158,7 @@
                       <input type="text" class="form-control" name="full_name" placeholder="Full Name *" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" name='username' placeholder="UserName *" value="" />
+                      <input type="text" class="form-control" name="username" placeholder="UserName *" value="" />
                     </div>
                     <div class="form-group">
                       <input type="email" class="form-control" name="email" placeholder="Email *" value="" />
@@ -158,7 +180,13 @@
                       <input type="password" class="form-control" name="password" placeholder="Password *" value="" />
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password *" value="" />
+                      <input
+                        type="password"
+                        class="form-control"
+                        name="confirm_password"
+                        placeholder="Confirm Password *"
+                        value=""
+                      />
                     </div>
                     <div class="form-group">
                       <select class="form-control">

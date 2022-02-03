@@ -1,12 +1,14 @@
 const express = require('express');
-const loginController = require('../controller/loginController');
 const router = express.Router();
-
-router
-  .route('/')
-  .get(async (req, res) => {
-    res.status(200).send('This is working');
-  })
-  .post(loginController.handleLogin);
+const passport = require('passport');
+const path = require('path');
+const checkAuth = require('../controller/checkAuth');
+router.route('/').get(checkAuth.is, async (req, res) => {
+    res.sendFile(path.resolve('frontend/home.html'));
+});
+router.route('/login').get(checkAuth.not, async (req, res) => {
+    res.sendFile(path.resolve('frontend/index.html'));
+});
+//post to be added
 
 module.exports = router;

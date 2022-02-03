@@ -58,7 +58,7 @@
                       <div class="col-md-10 order-2">
                         <p class="text-center h1 fw-bold mb-5 mt-4">Welcome</p>
 
-                        <form action="http://localhost:3000/signin" method="POST">
+                        <form action="/login" method="POST">
                           <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
@@ -68,7 +68,7 @@
                                 type="text"
                                 id="username"
                                 class="form-control"
-                                name="login"
+                                name="username"
                               />
                               <label class="form-label" for="username" style="margin-left: 0px">Username</label>
                               <div class="form-notch">
@@ -88,7 +88,7 @@
                                 type="password"
                                 id="password"
                                 class="form-control"
-                                name="login"
+                                name="password"
                               />
                               <label class="form-label" for="password" style="margin-left: 0px">Password</label>
                               <div class="form-notch">
@@ -102,12 +102,7 @@
                             <button type="submit" class="btn btn-primary btn-lg">Login</button>
                           </div>
                           <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <a
-                              type="button"
-                              href="http://127.0.0.1:5501/frontend/newUser.html"
-                              class="btn btn-primary btn-lg"
-                              >Create</a
-                            >
+                            <a type="button" href="/register" class="btn btn-primary btn-lg">Create</a>
                           </div>
                         </form>
                       </div>

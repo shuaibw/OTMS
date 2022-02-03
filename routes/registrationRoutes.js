@@ -1,19 +1,14 @@
 const express = require('express');
 const registrationController = require('../controller/registrationController');
 const router = express.Router();
+const path = require('path');
+const checkAuth = require('../controller/checkAuth');
 
-router
-  .route('/student')
-  .get(async (req, res) => {
-    res.status(200).send('This is working');
-  })
-  .post(registrationController.registerStudent);
+router.route('/').get(checkAuth.not, async (req, res) => {
+    res.sendFile(path.resolve('frontend/newUser.html'));
+});
+router.route('/student').post(checkAuth.not, registrationController.registerStudent);
 
-router
-  .route('/instructor')
-  .get(async (req, res) => {
-    res.status(200).send('I am alive');
-  })
-  .post(registrationController.registerIntructor);
+router.route('/instructor').post(checkAuth.not, registrationController.registerIntructor);
 
 module.exports = router;
