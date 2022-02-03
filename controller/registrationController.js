@@ -11,7 +11,7 @@ exports.registerIntructor = async (req, res) => {
             regData.username,
             regData.password,
         ]);
-        res.status(200).redirect('http://localhost:5501/frontend/index.html');
+        res.status(200).redirect('http://localhost:5501/frontend/login.html');
     } catch (err) {
         res.status(500).redirect('http://localhost:5501/frontend/newUser.html');
     }

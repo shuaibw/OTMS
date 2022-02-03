@@ -28,17 +28,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/', loginRouter);
+app.use(loginRouter);
 app.use('/register', registrationRouter);
 app.use('/home', homeRouter);
-app.post(
-    '/login',
-    passport.authenticate('local', {
-        successRedirect: '/home',
-        failureRedirect: '/login',
-        failureFlash: true,
-    })
-);
 
 app.listen(3000, () => {
     console.log('Server listeing at 3000');
