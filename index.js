@@ -7,6 +7,7 @@ const passport = require('passport');
 const loginRouter = require('./routes/loginRoutes');
 const registrationRouter = require('./routes/registrationRoutes');
 const homeRouter = require('./routes/homeRoutes');
+const logoutRouter = require('./routes/logoutRoutes')
 const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
 
@@ -32,6 +33,7 @@ app.use(passport.session());
 app.use(loginRouter);
 app.use('/register', registrationRouter);
 app.use('/home', homeRouter);
+app.use('/logout', logoutRouter);
 
 app.listen(3000, () => {
     console.log('Server listeing at 3000');

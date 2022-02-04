@@ -27,6 +27,7 @@
     <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet" />
     <title>Free tutors landing page</title>
     <link rel="stylesheet" href="css/homeStyle.css" />
+    <script src="scripts/homeScript.js"></script>
   </head>
   <body>
     <div class="page-wrape">
@@ -77,12 +78,14 @@
                   <a class="nav-link" href="#">E-Learning</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Contact Us</a>
+                  <div class="ml-lg-2">
+                    <a class="btn btn-success my-tutors" href="#">My Tutors</a>
+                  </div>
                 </li>
               </ul>
-              <div class="ml-lg-5">
-                <a class="btn btn-success my-tutors" href="#">My Tutors</a>
-              </div>
+              <form class='ml-lg-3' action="/logout" method="POST">
+                <button class="btn btn-outline-danger" type="submit">Logout</button>
+              </form>
             </div>
           </div>
         </nav>
