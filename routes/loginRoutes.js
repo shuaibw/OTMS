@@ -9,7 +9,8 @@ router.route('/').get(checkAuth.is, async (req, res) => {
 router
     .route('/login')
     .get(checkAuth.not, async (req, res) => {
-        res.sendFile(path.resolve('frontend/login.html'));
+        // res.sendFile(path.resolve('frontend/login.html'));
+        res.render(path.resolve('frontend/login.ejs'));
     })
     .post(
         checkAuth.not,

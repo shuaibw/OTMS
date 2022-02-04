@@ -5,7 +5,7 @@ const path = require('path');
 const checkAuth = require('../controller/checkAuth');
 
 router.route('/').get(checkAuth.not, async (req, res) => {
-    res.sendFile(path.resolve('frontend/newUser.html'));
+    res.render(path.resolve('frontend/newUser.ejs'));
 });
 router.route('/student').post(checkAuth.not, registrationController.registerStudent);
 

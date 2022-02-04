@@ -11,6 +11,7 @@ const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
 
 const app = express();
+app.set('view-engine', 'ejs');
 app.use(express.static('frontend'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
