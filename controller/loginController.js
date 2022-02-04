@@ -10,6 +10,6 @@ exports.handleLogin = async (req, res) => {
   if (passCompare === password) {
     res.status(200).redirect('http://localhost:5501/frontend/home.html');
   } else {
-    res.status(404).redirect('http://localhost:5501/frontend/newUser.html');
+    res.status(404).redirect('http://localhost:5501/frontend/register.html');
   }
 };
