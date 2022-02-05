@@ -3,7 +3,7 @@ oracledb.outFormat = oracledb.OBJECT;
 oracledb.autoCommit = true;
 let connection;
 
-const executeQuery = async (query, params) => {
+const executeQuery = async (query, binds, options) => {
   if (!connection) {
     connection = await oracledb.getConnection({
       user: 'C##SHUAIB',
@@ -12,7 +12,7 @@ const executeQuery = async (query, params) => {
     });
   }
   try {
-    let result = await connection.execute(query, params);
+    let result = await connection.execute(query, binds, options);
     return result;
   } catch (err) {
     console.log(err);
