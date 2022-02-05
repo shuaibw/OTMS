@@ -16,7 +16,7 @@ const getUserById = async (id, dbTable) => {
 };
 const authenticateUser = async (req, username, password, done) => {
     // console.log('Authentication called');
-    const dbtable = req.url === '/login' ? 'STUDENTS' : 'INSTRUCTORS';
+    const dbtable = req.url.includes('instructor') ? 'INSTRUCTORS' : 'STUDENTS';
     const user = await getUserByName(username, dbtable);
     if (user == null) return done(null, false, { message: 'No user found with this name' });
     try {
@@ -36,7 +36,7 @@ const initialize = (passport) => {
     );
     passport.serializeUser((user, done) => done(null, user.ID));
     passport.deserializeUser(async (req, id, done) => {
-        const dbTable = req.url === '/home' ? 'STUDENTS' : 'INSTRUCTORS';
+        const dbTable = req.url.includes('instructor') ? 'INSTRUCTORS' : 'STUDENTS';
         const user = await getUserById(id, dbTable);
         done(null, user);
     });
