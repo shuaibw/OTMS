@@ -42,7 +42,7 @@ router
         checkAuth.not,
         passport.authenticate('local', {
             successRedirect: '/home/instructor',
-            failureRedirect: '/login',
+            failureRedirect: '/login/instructor',
             failureFlash: true,
             successMessage: 'shuaib',
         })
