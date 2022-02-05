@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 
 exports.registerIntructor = async (req, res) => {
     const query = `INSERT INTO INSTRUCTORS 
-(NAME, LOCATION, EMAIL, USERNAME, PASSWORD, PHONE, AGE, GENDER, INSTITUTION, YEAR, DEPARTMENT)
+(NAME, LOCATION, EMAIL, USERNAME, PASSWORD, PHONE, AGE, GENDER, INSTITUTION, YEAR, DEPARTMENT, SUBJECTS)
     VALUES 
-(:fullname, :location, :email, :username, :password, :phone, :age, :gender, :institution, :year, :department)`;
+(:fullname, :location, :email, :username, :password, :phone, :age, :gender, :institution, :year, :department, :subjects)`;
     const data = req.body;
     console.log(data);
     try {
@@ -22,6 +22,7 @@ exports.registerIntructor = async (req, res) => {
             data.institution,
             data.year,
             data.department,
+            data.selectedSubjects.toString()
         ]);
         console.log(result);
         if (result) res.redirect('http://localhost:3000/login');
