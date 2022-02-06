@@ -4,18 +4,23 @@ const bcrypt = require('bcrypt');
 
 const getUserByName = async (username, dbTable) => {
     // console.log(`BYNAME: SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE USERNAME=:username`);
-    result = await executeQuery(`SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE USERNAME=:username`, [username]);
+    result = await executeQuery(
+        `SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE USERNAME=:username`,
+        { username: username },
+        {}
+    );
     if (result.rows.length != 0) return result.rows[0];
     else return null;
 };
 const getUserById = async (id, dbTable) => {
     // console.log(`BYID: SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE ID=:id`);
-    result = await executeQuery(`SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE ID=:id`, [id]);
+    result = await executeQuery(`SELECT ID, USERNAME, PASSWORD FROM ${dbTable} WHERE ID=:id`, { id: id }, {});
     if (result.rows.length != 0) return result.rows[0];
     else return null;
 };
 const authenticateUser = async (req, username, password, done) => {
-    // console.log('Authentication called');
+    console.log('Authentication called');
+    console.log(req);
     const dbtable = req.url.includes('instructor') ? 'INSTRUCTORS' : 'STUDENTS';
     const user = await getUserByName(username, dbtable);
     if (user == null) return done(null, false, { message: 'No user found with this name' });
