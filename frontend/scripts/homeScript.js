@@ -25,3 +25,7 @@ $('#reviews').on('click', (e) => {
         800
     );
 });
+$('.subjects').on('click', function () {
+    const subject = $(this).find('h6').text();
+    window.location.href = `/${subject}/tutors`;
+});

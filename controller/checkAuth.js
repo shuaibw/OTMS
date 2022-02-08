@@ -9,3 +9,12 @@ exports.not = (req, res, next) => {
     if (req.isAuthenticated()) return res.redirect('/home');
     next();
 };
+
+exports.isInstructor = (req, res, next) => {
+    if (req.session.isInstructor) return next();
+    res.redirect('/home');
+};
+exports.isStudent = (req, res, next) => {
+    if (!req.session.isInstructor) return next();
+    res.redirect('/home/instructor');
+};
