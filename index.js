@@ -7,7 +7,8 @@ const passport = require('passport');
 const loginRouter = require('./routes/loginRoutes');
 const registrationRouter = require('./routes/registrationRoutes');
 const homeRouter = require('./routes/homeRoutes');
-const logoutRouter = require('./routes/logoutRoutes')
+const logoutRouter = require('./routes/logoutRoutes');
+const subjectRouter = require('./routes/subjectRoutes');
 const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
 
@@ -33,6 +34,7 @@ app.use(passport.session());
 app.use(loginRouter);
 app.use('/register', registrationRouter);
 app.use('/home', homeRouter);
+app.use(subjectRouter);
 app.use('/logout', logoutRouter);
 
 app.listen(3000, () => {

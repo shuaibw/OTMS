@@ -53,20 +53,21 @@ exports.registerStudent = async (req, res) => {
     const data = req.body;
     try {
         const hashedPwd = await bcrypt.hash(data.password, 10);
-        const result = await executeQuery(query, [
-            data.fullname,
-            data.location,
-            data.email,
-            data.username,
-            hashedPwd,
-            data.phone,
-            data.age,
-            data.gender,
-            data.school,
-            data.grade,
-            data.faculty,
-            data.version,
-        ]);
+        const student_binds = {
+            fullname: data.fullname,
+            location: data.location,
+            email: data.email,
+            username: data.username,
+            password: hashedPwd,
+            phone: data.phone,
+            age: data.age,
+            gender: data.gender,
+            school: data.school,
+            grade: data.grade,
+            faculty: data.faculty,
+            version: data.version,
+        };
+        const result = await executeQuery(query, student_binds, {});
         console.log(result);
         if (result) res.redirect('http://localhost:3000/login');
         else res.redirect('http://localhost:3000/register');

@@ -26,6 +26,6 @@ $('#reviews').on('click', (e) => {
     );
 });
 $('.subjects').on('click', function () {
-    const subject = $(this).find('h6').text();
-    window.location.href = `/${subject}/tutors`;
+    const subject = $(this).find('h6').text().toLowerCase();
+    window.location.href = `/${subject}/instructors`;
 });
