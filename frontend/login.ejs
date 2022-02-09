@@ -42,10 +42,13 @@
           field.classList.remove('active');
         }
       };
+      $(document).ready(() => {
+        $('body').css('background-image', '<%=backgroundGrad%>');
+      });
     </script>
     <title>Welcome to Sphuron</title>
   </head>
-  <body style="<%=backgroundGrad%>">
+  <body>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-8">
