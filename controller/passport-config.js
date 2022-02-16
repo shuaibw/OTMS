@@ -23,6 +23,7 @@ const authenticateUser = async (req, username, password, done) => {
     // console.log(req);
     const dbtable = req.url.includes('instructor') ? 'INSTRUCTORS' : 'STUDENTS';
     if (dbtable === 'INSTRUCTORS') req.session.isInstructor = true;
+    else req.session.isInstructor = false;
 
     const user = await getUserByName(username, dbtable);
     if (user == null) return done(null, false, { message: 'No user found with this name' });
@@ -30,7 +31,7 @@ const authenticateUser = async (req, username, password, done) => {
         if (await bcrypt.compare(password, user.PASSWORD)) return done(null, user);
         else return done(null, false, { message: 'Password incorrect' });
     } catch (err) {
-        console.log(err);
+        console.log('🚀 ~ file: passport-config.js ~ line 33 ~ authenticateUser ~ err', err);
         return done(err);
     }
 };
