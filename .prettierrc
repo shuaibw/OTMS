@@ -4,7 +4,7 @@
     "tabWidth": 4,
     "overrides": [
         {
-            "files": "*.ejs",
+            "files": ["*.ejs", "*.html"],
             "options": {
                 "tabWidth": 2
             }
