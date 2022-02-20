@@ -164,3 +164,12 @@ exports.getMaterialsByInstructor = async (iid) => {
     const binds = { iid: iid };
     return await executeQuery(query, binds, {});
 };
+
+exports.getMaterialsBySubject = async (subject) => {
+    const query = `SELECT M.TITLE, M.LINK, I.NAME, I.DEPARTMENT, I.INSTITUTION
+    FROM SUBJECTS S
+             JOIN MATERIALS M ON (S.SUBJECT_NAME = :subject AND S.ID = M.SUBJECT_ID)
+             JOIN INSTRUCTORS I ON (I.ID = M.INSTRUCTOR_ID)`;
+    const binds = { subject: subject };
+    return await executeQuery(query, binds, {});
+};
