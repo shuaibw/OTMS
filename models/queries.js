@@ -139,3 +139,20 @@ exports.getInstructorsBySubject = async (subject) => {
     const result = await executeQuery(query, bind, {});
     return result;
 };
+
+exports.getSubjectsByInstructor = async (username) => {
+    const query = `SELECT SUBJECT_NAME, SUBJECT_ID
+    FROM INSTRUCTORS I
+             JOIN TEACHES T ON (I.ID = T.INSTRUCTOR_ID AND I.USERNAME=:username)
+             JOIN SUBJECTS S ON (T.SUBJECT_ID = S.ID)`;
+    const bind = { username: username };
+    const result = await executeQuery(query, bind, {});
+    return result;
+};
+
+exports.insertMaterial = async (iid, sid, title, link) => {
+    const query = `INSERT INTO MATERIALS (INSTRUCTOR_ID, SUBJECT_ID, TITLE, LINK)
+    VALUES (:iid, :sid, :title, :link)`;
+    const binds = { iid: iid, sid: sid, title: title, link: link };
+    return await executeQuery(query, binds, {});
+};

@@ -9,6 +9,7 @@ const registrationRouter = require('./routes/registrationRoutes');
 const homeRouter = require('./routes/homeRoutes');
 const logoutRouter = require('./routes/logoutRoutes');
 const subjectRouter = require('./routes/subjectRoutes');
+const matUploadRouter = require('./routes/uploadMatRoutes');
 const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
 
@@ -36,6 +37,7 @@ app.use('/register', registrationRouter);
 app.use('/home', homeRouter);
 app.use(subjectRouter);
 app.use('/logout', logoutRouter);
+app.use('/upload', matUploadRouter);
 
 app.listen(3000, () => {
     console.log('Server listeing at 3000');
