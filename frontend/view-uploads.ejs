@@ -2,23 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Upload materials</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <style>
-      .main-form {
-        width: 450px;
-        margin: auto;
-      }
-    </style>
+    <title>My contents</title>
   </head>
-
   <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
       <a href="/home/instructor" class="navbar-brand">Home</a>
@@ -31,42 +24,48 @@
             <a href="#" class="nav-link">Users</a>
           </li> -->
           <li class="nav-item">
-            <a href="/upload/view" class="nav-link">My uploads</a>
+            <a href="/upload" class="nav-link">Upload</a>
           </li>
         </ul>
       </div>
     </nav>
-
-    <form action="/upload" method="POST" class="main-form">
-      <div class="form-group">
-        <label for="subject">Select your subject</label>
-        <select name="subject_id" id="subject" class="form-control">
-          <% for(subject of data){ %>
-          <option value="<%=subject.SUBJECT_ID%>"><%= subject.SUBJECT_NAME %></option>
-          <% }%>
-        </select>
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>My contents</h1>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" class="form-control" required />
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Subject</th>
+                <th>Playback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(content of data){ %>
+              <tr>
+                <td class="align-middle"><%= content.TITLE %></td>
+                <td class="align-middle"><%= content.SUBJECT_NAME %></td>
+                <td>
+                  <div class="embed-responsive embed-responsive-16by9">
+                    <iframe
+                      class="embed-responsive-item"
+                      src=<%=`https://www.youtube.com/embed/${content.LINK}`%>
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </td>
+              </tr>
+              <% }%>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="video_link">Video Link</label>
-        <input type="url" name="video_link" id="video_link" class="form-control" required />
-      </div>
-      <div class="form-group">
-        <label for="uploaded_file">Upload file</label>
-        <input type="file" class="form-control-file" id="uploaded_file" />
-      </div>
-      <div class="form-check">
-        <input type="checkbox" id="accept-terms" class="form-check-input" />
-        <label for="accept-terms" class="form-check-label">I agree that these contents are authentic and mine</label>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <% if(success){ %>
-      <div class="alert alert-success p-2 m-3" role="alert">Upload successful!</div>
-      <% } %>
-    </form>
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

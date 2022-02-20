@@ -156,3 +156,11 @@ exports.insertMaterial = async (iid, sid, title, link) => {
     const binds = { iid: iid, sid: sid, title: title, link: link };
     return await executeQuery(query, binds, {});
 };
+
+exports.getMaterialsByInstructor = async (iid) => {
+    const query = `SELECT TITLE, LINK, SUBJECT_NAME 
+    FROM MATERIALS JOIN SUBJECTS ON 
+    (INSTRUCTOR_ID = :iid AND SUBJECT_ID=ID)`;
+    const binds = { iid: iid };
+    return await executeQuery(query, binds, {});
+};

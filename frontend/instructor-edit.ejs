@@ -11,12 +11,31 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
     <style type="text/css">
       body {
-        margin-top: 20px;
+        /* margin-top: 20px; */
         background: #f8f8f8;
       }
     </style>
   </head>
   <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <a href="/home/instructor" class="navbar-brand">Home</a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav">
+          <!-- <li class="nav-item">
+            <a href="#" class="nav-link">Users</a>
+          </li> -->
+          <li class="nav-item">
+            <a href="/upload" class="nav-link">Upload material</a>
+          </li>
+          <li class="nav-item">
+            <a href="/upload/view" class="nav-link">My uploads</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
       <div class="row flex-lg-nowrap">
         <div class="col-12 col-lg-auto mb-3" style="width: 200px">
@@ -29,7 +48,7 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link px-2" href="/upload"><i class="fa fa-fw fa-th mr-1"></i><span>Upload</span></a>
+                  <a class="nav-link px-2" href=""><i class="fa fa-fw fa-th mr-1"></i><span>Upload</span></a>
                 </li>
               </ul>
             </div>
