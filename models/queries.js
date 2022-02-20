@@ -119,7 +119,8 @@ RETURNING ID INTO :emp_id`;
     return result;
 };
 exports.selectInstructorByID = async (ID) => {
-    const instructorQuery = `SELECT NAME, ADDR_ID, EMAIL, USERNAME, PASSWORD, PHONE, AGE, INSTITUTION, DEPARTMENT
+    const instructorQuery = `SELECT NAME, ADDR_ID, EMAIL, USERNAME, PASSWORD, PHONE, AGE, INSTITUTION, DEPARTMENT,
+    TO_CHAR(DATE_CREATED, 'DD Mon YYYY') JOIN_DATE
     FROM INSTRUCTORS I WHERE I.ID = :id`;
     const instructorBinds = { id: ID };
     const result = await executeQuery(instructorQuery, instructorBinds, {});
