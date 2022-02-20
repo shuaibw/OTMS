@@ -19,9 +19,8 @@ router.route('/:subject/instructors').get(checkAuth.is, checkAuth.isStudent, asy
 router.route('/:subject/uploads').get(checkAuth.is, checkAuth.isStudent, async (req, res) => {
     let subject = req.params.subject;
     const result = await queries.getMaterialsBySubject(subject);
-    console.log('🚀 ~ file: subjectRoutes.js ~ line 22 ~ router.route ~ result', result);
     const data = result.rows;
-    console.log('🚀 ~ file: subjectRoutes.js ~ line 23 ~ router.route ~ data', data);
+    // console.log('🚀 ~ file: subjectRoutes.js ~ line 23 ~ router.route ~ data', data);
 
     for (const x of data) {
         x.LINK = utils.extractIDfromLink(x.LINK);
