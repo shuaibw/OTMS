@@ -10,6 +10,7 @@ const homeRouter = require('./routes/homeRoutes');
 const logoutRouter = require('./routes/logoutRoutes');
 const subjectRouter = require('./routes/subjectRoutes');
 const bookRouter = require('./routes/bookRoutes');
+const viewBookRoutes = require('./routes/viewBookingRoutes');
 const matUploadRouter = require('./routes/uploadMatRoutes');
 const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
@@ -38,6 +39,7 @@ app.use('/register', registrationRouter);
 app.use('/home', homeRouter);
 app.use('/book', bookRouter);
 app.use(subjectRouter);
+app.use('/bookings', viewBookRoutes);
 app.use('/logout', logoutRouter);
 app.use('/upload', matUploadRouter);
 

@@ -200,3 +200,29 @@ exports.insertBooks = async (booking_id, sid, iid) => {
     };
     return await executeQuery(query, binds, {});
 };
+
+exports.getBookingsForStudent = async (sid) => {
+    const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
+    I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
+    BKN.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    FROM STUDENTS S
+      JOIN BOOKS B ON (B.STUDENT_ID = S.ID AND S.ID = :sid)
+      JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
+      JOIN SUBJECTS SJ ON BKN.BOOKING_SUBJECT_ID = SJ.ID
+      JOIN INSTRUCTORS I ON (I.ID = B.INSTRUCTOR_ID)`;
+    const binds = { sid: sid };
+    return await executeQuery(query, binds, {});
+};
+
+exports.getBookingsForInstructor = async (iid) => {
+    const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
+    I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
+    BKN.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    FROM INSTRUCTORS I
+      JOIN BOOKS B ON (B.INSTRUCTOR_ID = I.ID AND I.ID = :iid)
+      JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
+      JOIN SUBJECTS SJ ON BKN.BOOKING_SUBJECT_ID = SJ.ID
+      JOIN STUDENTS S ON (S.ID = B.STUDENT_ID)`;
+    const binds = { iid: iid };
+    return await executeQuery(query, binds, {});
+};
