@@ -204,12 +204,13 @@ exports.insertBooks = async (booking_id, sid, iid) => {
 exports.getBookingsForStudent = async (sid) => {
     const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
     I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
-    BKN.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
     FROM STUDENTS S
       JOIN BOOKS B ON (B.STUDENT_ID = S.ID AND S.ID = :sid)
       JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
       JOIN SUBJECTS SJ ON BKN.BOOKING_SUBJECT_ID = SJ.ID
-      JOIN INSTRUCTORS I ON (I.ID = B.INSTRUCTOR_ID)`;
+      JOIN INSTRUCTORS I ON (I.ID = B.INSTRUCTOR_ID)
+      LEFT JOIN PAYMENTS P ON (P.TRX_ID=BKN.TRX_ID)`;
     const binds = { sid: sid };
     return await executeQuery(query, binds, {});
 };
@@ -217,12 +218,51 @@ exports.getBookingsForStudent = async (sid) => {
 exports.getBookingsForInstructor = async (iid) => {
     const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
     I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
-    BKN.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
     FROM INSTRUCTORS I
       JOIN BOOKS B ON (B.INSTRUCTOR_ID = I.ID AND I.ID = :iid)
       JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
       JOIN SUBJECTS SJ ON BKN.BOOKING_SUBJECT_ID = SJ.ID
-      JOIN STUDENTS S ON (S.ID = B.STUDENT_ID)`;
+      JOIN STUDENTS S ON (S.ID = B.STUDENT_ID)
+      LEFT JOIN PAYMENTS P ON (P.TRX_ID=BKN.TRX_ID)`;
     const binds = { iid: iid };
     return await executeQuery(query, binds, {});
+};
+
+exports.updateBookingStatus = async (bid, status) => {
+    const query = `UPDATE BOOKING
+    SET STATUS = :status
+    WHERE ID = :bid`;
+    const binds = { bid: bid, status: status };
+    return await executeQuery(query, binds, {});
+};
+
+exports.createPayment = async (trx_id, paid_amount, payment_medium, phone_number) => {
+    const query = `INSERT INTO PAYMENTS (TRX_ID, PAID_AMOUNT, PAYMENT_MEDIUM, PHONE_NUMBER)
+    VALUES (:trx_id, :paid_amount, :payment_medium, :phone_number)`;
+    const binds = {
+        trx_id: trx_id,
+        paid_amount: paid_amount,
+        payment_medium: payment_medium,
+        phone_number: phone_number,
+    };
+    return await executeQuery(query, binds, {});
+};
+
+exports.updateBookingTrx = async (booking_id, trx_id) => {
+    const query = `UPDATE BOOKING
+    SET TRX_ID = :trx_id
+    WHERE ID = :booking_id`;
+    const binds = { trx_id: trx_id, booking_id: booking_id };
+    return await executeQuery(query, binds, {});
+};
+
+exports.deleteBooking = async (booking_id) => {
+    const bookingQuery = `DELETE FROM BOOKING
+    WHERE ID = :booking_id`;
+    const booksQuery = `DELETE FROM BOOKS 
+    WHERE BOOKING_ID = :booking_id`;
+    const binds = { booking_id: booking_id };
+    const booksResult = await executeQuery(booksQuery, binds, {});
+    const bookingResult = await executeQuery(bookingQuery, binds, {});
 };

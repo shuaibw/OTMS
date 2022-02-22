@@ -34,10 +34,10 @@
             <th>Instructor</th>
             <th>Subject</th>
             <th>Type</th>
-            <th>Date</th>
+            <th>Booking Date</th>
             <th>Status</th>
             <th>Payment</th>
-            <th>Cancel</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody class="align-middle">
@@ -51,21 +51,77 @@
               <td><%=row.STATUS%></td>
               <td><%=row.PAYMENT?row.PAYMENT:`Not Paid`%></td>
               <td>
-                <% if(row.STATUS==='pending-instructor') {%>
+                <% if(row.STATUS === 'pending-instructor') {%>
                   <a href=<%=`/bookings/student/cancel/${row.BOOKING_ID}`%> class="btn btn-danger">Cancel</a>
-                <% }else {%>
-                  Cannot cancel
+                <% }else if(row.STATUS === 'pending-payment'){%>
+                  <button type="button"
+                  class="btn btn-warning"
+                  data-bs-toggle="modal"
+                  data-bs-bookingId=<%=row.BOOKING_ID%>
+                  data-bs-target="#payModal">Make payment</button>
+                <% } else {%>
+                  <button type="button" class="btn btn-success" disabled>Confirmed</button>
                 <% } %>                 
               </td>
             </tr>
             <% } %>  
         </tbody>
       </table>
+      <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="payModalLabel">Enter payment details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/bookings/student/pay" method="POST">
+                <div class="mb-1">
+                  <label for="phone-number" class="col-form-label">Phone number</label>
+                  <input class="form-control" id="phone-number" name="phone_number"/>
+                  <input class="form-control" type="hidden" id="booking-id" name="booking_id"/>
+                </div>
+                <div class="mb-1">
+                  <label for="trx-id" class="col-form-label">Transaction ID</label>
+                  <input class="form-control" id="trx-id" name="trx_id"></input>
+                </div>
+                <div class="mb-1">
+                  <label for="pay-amount" class="col-form-label">Amount</label>
+                  <input class="form-control" id="pay-amount" name="pay_amount" value="3000"></input>
+                </div>
+                <div class="mb-3">
+                  <label for="pay-medium" class="col-form-label">Payment Medium</label>
+                  <select class="form-control" id="pay-medium" name="pay_medium">
+                      <option class="hidden" selected disabled>Please select your payment medium</option>
+                      <option>bKash</option>
+                      <option>Nagad</option>
+                      <option>Rocket</option>
+                      <option>Bank</option>
+                    </select>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Send message</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script>
+        const payModal = document.getElementById('payModal');
+        payModal.addEventListener('show.bs.modal', function(event){
+            const button = event.relatedTarget;
+            const bookingId = button.getAttribute('data-bs-bookingId');
+            const modalBookingId=payModal.querySelector('#booking-id');
+            modalBookingId.value = bookingId;
+        });
+    </script>
   </body>
 </html>

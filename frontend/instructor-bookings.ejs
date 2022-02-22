@@ -51,15 +51,17 @@
               <td><%=row.STATUS%></td>
               <td><%=row.PAYMENT?row.PAYMENT:`Not Paid`%></td>
               <td>
-                <% if(row.STATUS==='pending-instructor') {%>
-                  <a href=<%=`/bookings/instructor/accept${row.BOOKING_ID}`%> class="btn btn-success">Accept</a>
-                  <a href=<%=`/bookings/instructor/cancel${row.BOOKING_ID}`%> class="btn btn-danger">Reject</a>
-                <% }else {%>
-                  Confirmed
-                <% } %>                 
+                <% if(row.STATUS === 'pending-instructor') {%>
+                  <a href=<%=`/bookings/instructor/accept/${row.BOOKING_ID}`%> class="btn btn-success">Accept</a>
+                  <a href=<%=`/bookings/instructor/cancel/${row.BOOKING_ID}`%> class="btn btn-danger">Reject</a>
+                <% }else if(row.STATUS=== 'pending-payment'){%>
+                  <a href=<%=`/bookings/instructor/cancel/${row.BOOKING_ID}`%> class="btn btn-danger">Reject</a>
+                <% } else {%>
+                    <button type="button" class="btn btn-success" disabled>Confirmed</button>
+                <% } %>                  
               </td>
             </tr>
-            <% } %>  
+          <% } %>  
         </tbody>
       </table>
     </div>
