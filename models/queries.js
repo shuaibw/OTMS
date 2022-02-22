@@ -29,7 +29,6 @@ const getSubjectID = async (subjectName) => {
     }
     return result.rows[0].ID;
 };
-
 const getAddressByID = async (ADDR_ID) => {
     const query = `SELECT CITY, DISTRICT FROM ADDRESS WHERE ID=:addr_id`;
     const binds = {
@@ -132,7 +131,7 @@ exports.selectInstructorByID = async (ID) => {
 };
 
 exports.getInstructorsBySubject = async (subject) => {
-    const query = `SELECT NAME, INSTITUTION, DEPARTMENT, YEAR, EMAIL, PHONE
+    const query = `SELECT I.ID, NAME, INSTITUTION, DEPARTMENT, YEAR, EMAIL, PHONE
     FROM INSTRUCTORS I
              JOIN TEACHES T ON (I.ID = T.INSTRUCTOR_ID)
              JOIN SUBJECTS S ON (T.SUBJECT_ID = S.ID AND S.SUBJECT_NAME = :subject)`;
@@ -172,5 +171,32 @@ exports.getMaterialsBySubject = async (subject) => {
              JOIN MATERIALS M ON (S.SUBJECT_NAME = :subject AND S.ID = M.SUBJECT_ID)
              JOIN INSTRUCTORS I ON (I.ID = M.INSTRUCTOR_ID)`;
     const binds = { subject: subject };
+    return await executeQuery(query, binds, {});
+};
+
+exports.createBooking = async (subject, booking_type, status) => {
+    const subject_id = await getSubjectID(subject);
+    const query = `INSERT INTO BOOKING (BOOKING_TYPE, BOOKING_SUBJECT_ID, STATUS)
+    VALUES (:booking_type, :subject_id, :status)
+    RETURNING ID INTO :booking_id`;
+    const binds = {
+        booking_type: booking_type,
+        subject_id: subject_id,
+        status: status,
+        booking_id: { dir: oracledb.BIND_OUT },
+    };
+    const result = await executeQuery(query, binds, {});
+    if (!result) return null;
+    return result.outBinds.booking_id[0];
+};
+
+exports.insertBooks = async (booking_id, sid, iid) => {
+    const query = `INSERT INTO BOOKS (BOOKING_ID, STUDENT_ID, INSTRUCTOR_ID)
+    VALUES (:booking_id, :sid, :iid)`;
+    const binds = {
+        booking_id: booking_id,
+        sid: sid,
+        iid: iid,
+    };
     return await executeQuery(query, binds, {});
 };
