@@ -38,6 +38,7 @@
             <th>Status</th>
             <th>Payment</th>
             <th>Confirmation</th>
+            <th>Link</th>
           </tr>
         </thead>
         <tbody class="align-middle">
@@ -60,15 +61,71 @@
                     <button type="button" class="btn btn-success" disabled>Confirmed</button>
                 <% } %>                  
               </td>
+              <td>
+                  <% if(row.STATUS === 'Payment Complete' || row.STATUS === 'Link provided') {%>
+                    <button type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-bookingId=<%=row.BOOKING_ID%>
+                    data-bs-bookingLink = <% if(row.LINK) {%>
+                        <%=row.LINK%>
+                        <% } else {%>
+                            <%="Enter"%>
+                        <% } %> 
+                    data-bs-target="#linkModal"><% if(row.LINK) {%>
+                        <%="Update"%>
+                        <% } else {%>
+                            <%="Upload"%>
+                        <% } %> 
+                    </button>
+                  <% } else { %>
+                    <button type="button" class="btn btn-primary" disabled>Upload</button>
+                  <% } %>  
+              </td>
             </tr>
           <% } %>  
         </tbody>
       </table>
     </div>
+    <div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="linkModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="linkModalLabel">Provide your session link</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/bookings/instructor/session_link" method="POST">
+                <div class="mb-3">
+                  <label for="link" class="col-form-label">Link</label>
+                  <input class="form-control" id="link" name="link"/>
+                  <input class="form-control" type="hidden" id="booking-id" name="booking_id"/>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script>
+        const linkModal = document.getElementById('linkModal');
+        linkModal.addEventListener('show.bs.modal', function(event){
+            const button = event.relatedTarget;
+            const bookingId = button.getAttribute('data-bs-bookingId');
+            const modalBookingId=linkModal.querySelector('#booking-id');
+            const bookingLink = button.getAttribute('data-bs-bookingLink');
+            const modalBookingLink = linkModal.querySelector('#link');
+            modalBookingLink.value = bookingLink === "Enter" ? '' : bookingLink;
+            modalBookingId.value = bookingId;
+        });
+    </script>
   </body>
 </html>

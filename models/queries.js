@@ -204,7 +204,8 @@ exports.insertBooks = async (booking_id, sid, iid) => {
 exports.getBookingsForStudent = async (sid) => {
     const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
     I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
-    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME,
+    BKN.LINK LINK
     FROM STUDENTS S
       JOIN BOOKS B ON (B.STUDENT_ID = S.ID AND S.ID = :sid)
       JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
@@ -218,7 +219,8 @@ exports.getBookingsForStudent = async (sid) => {
 exports.getBookingsForInstructor = async (iid) => {
     const query = `SELECT S.NAME STUDENT_NAME, B.BOOKING_ID BOOKING_ID, SJ.SUBJECT_NAME SUBJECT,
     I.NAME INSTRUCTOR_NAME, BKN.STATUS STATUS, BKN.BOOKING_TYPE TYPE,
-    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME
+    P.PAID_AMOUNT PAYMENT, TO_CHAR(BKN.BOOKING_TIME, 'DD Mon YYYY') TIME,
+    BKN.LINK LINK
     FROM INSTRUCTORS I
       JOIN BOOKS B ON (B.INSTRUCTOR_ID = I.ID AND I.ID = :iid)
       JOIN BOOKING BKN ON (BKN.ID = B.BOOKING_ID)
@@ -265,4 +267,12 @@ exports.deleteBooking = async (booking_id) => {
     const binds = { booking_id: booking_id };
     const booksResult = await executeQuery(booksQuery, binds, {});
     const bookingResult = await executeQuery(bookingQuery, binds, {});
+};
+
+exports.addLinkToBooking = async (booking_id, link) => {
+    const query = `UPDATE BOOKING
+    SET LINK = :link
+    WHERE ID = :booking_id`;
+    const binds = { link: link, booking_id: booking_id };
+    return await executeQuery(query, binds, {});
 };

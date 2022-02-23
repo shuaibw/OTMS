@@ -38,6 +38,7 @@
             <th>Status</th>
             <th>Payment</th>
             <th>Action</th>
+            <th>Session</th>
           </tr>
         </thead>
         <tbody class="align-middle">
@@ -62,6 +63,13 @@
                 <% } else {%>
                   <button type="button" class="btn btn-success" disabled>Confirmed</button>
                 <% } %>                 
+              </td>
+              <td>
+                <% if(row.STATUS === 'Link provided') {%>
+                  <a href=<%=`${row.LINK}`%> class="btn btn-primary">Join</a>
+                <% } else { %>
+                  <button type="button" class="btn btn-secondary" disabled>Join</button>
+                <% } %> 
               </td>
             </tr>
             <% } %>  
@@ -101,7 +109,7 @@
                 </div>
                 <div>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Send message</button>
+                  <button type="submit" class="btn btn-primary">Confirm</button>
                 </div>
               </form>
             </div>

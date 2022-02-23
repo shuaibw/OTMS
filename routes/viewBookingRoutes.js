@@ -4,6 +4,7 @@ const checkAuth = require('../controller/checkAuth');
 const path = require('path');
 const queries = require('../models/queries');
 const utils = require('../models/utils');
+const executeQuery = require('../models/executeQuery');
 router.route('/student').get(checkAuth.is, checkAuth.isStudent, async (req, res) => {
     const bookings = await queries.getBookingsForStudent(req.user.ID);
     res.render(path.resolve('frontend/student-bookings.ejs'), { data: bookings.rows });
@@ -40,6 +41,14 @@ router.route('/instructor/cancel/:booking_id').get(checkAuth.is, checkAuth.isIns
     const booking_id = req.params.booking_id;
     const result = await queries.updateBookingStatus(booking_id, 'instructor'); //set marker to find out who deleted
     await queries.deleteBooking(booking_id);
+    res.redirect('/bookings/instructor');
+});
+
+router.route('/instructor/session_link').post(checkAuth.is, checkAuth.isInstructor, async (req, res) => {
+    const link = req.body.link;
+    const booking_id = req.body.booking_id;
+    await queries.addLinkToBooking(booking_id, link);
+    await queries.updateBookingStatus(booking_id, 'Link provided');
     res.redirect('/bookings/instructor');
 });
 module.exports = router;
