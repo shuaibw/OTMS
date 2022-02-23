@@ -6,7 +6,9 @@ const queries = require('../models/queries');
 const utils = require('../models/utils');
 router.route('/:subject/instructors/:successMsg?').get(checkAuth.is, checkAuth.isStudent, async (req, res) => {
     let subject = req.params.subject;
-    const result = await queries.getInstructorsBySubject(subject);
+    const successMsg = req.params.successMsg;
+    const result = await queries.getInstructorsBySubject(subject, successMsg === 'sort');
+    if (successMsg === 'sort') req.params.successMsg = null;
     if (subject === 'ict') subject = 'ICT';
     else subject = subject.charAt(0).toUpperCase() + subject.slice(1);
     res.render(path.resolve('frontend/list-instructors-bysubjects.ejs'), {

@@ -17,8 +17,7 @@
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="/home">Home</a></li>
-          <li><a href="#">Filter</a></li>
-          <li><a href="#">Sort</a></li>
+          <li><a href=<%=`/${subject.toLowerCase()}/instructors/sort`%>>Sort</a></li>
           <li><a href=<%=`/${subject.toLowerCase()}/uploads`%>>Materials</a></li>
         </ul>
         <form class="navbar-form navbar-left" action="/home">
