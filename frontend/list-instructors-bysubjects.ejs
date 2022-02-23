@@ -62,6 +62,7 @@
                 data-bs-city="<%=i.CITY%>"
                 data-bs-phone="<%=i.PHONE%>"
                 data-bs-district="<%=i.DISTRICT%>"
+                data-bs-classes_taken="<%=i.CLASSES_TAKEN%>"
                 >View</button>
               </div>
             </div>
@@ -113,6 +114,9 @@
               <div class="row">
                 <p id="phone"></p>
               </div>
+              <div class="row">
+                <p id="classes_taken"></p>
+              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -136,6 +140,7 @@
             $(this).find('#email').text(`Email: ${button.getAttribute('data-bs-email')}`);
             $(this).find('#phone').text(`Phone: ${button.getAttribute('data-bs-phone')}`);
             $(this).find('#addr').text(`Address: ${button.getAttribute('data-bs-city')}, ${button.getAttribute('data-bs-district')}`);
+            $(this).find('#classes_taken').text(`Classes taken: ${button.getAttribute('data-bs-classes_taken')}`);
         });
     </script>
   </body>

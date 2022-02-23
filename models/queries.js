@@ -132,7 +132,7 @@ exports.selectInstructorByID = async (ID) => {
 
 exports.getInstructorsBySubject = async (subject) => {
     const query = `SELECT I.ID, NAME, INSTITUTION, DEPARTMENT, YEAR, EMAIL, PHONE,
-    ADDR.CITY CITY, ADDR.DISTRICT DISTRICT
+    CLASSES_TAKEN, ADDR.CITY CITY, ADDR.DISTRICT DISTRICT
     FROM INSTRUCTORS I
              JOIN TEACHES T ON (I.ID = T.INSTRUCTOR_ID)
              JOIN SUBJECTS S ON (T.SUBJECT_ID = S.ID AND S.SUBJECT_NAME = :subject)
