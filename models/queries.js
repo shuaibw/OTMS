@@ -143,6 +143,20 @@ exports.getInstructorsBySubject = async (subject, sortBy) => {
     return result;
 };
 
+exports.searchInstructorsBySubject = async (subject, searchText) => {
+    let query = `SELECT I.ID, NAME, INSTITUTION, DEPARTMENT, YEAR, EMAIL, PHONE,
+    CLASSES_TAKEN, ADDR.CITY CITY, ADDR.DISTRICT DISTRICT
+    FROM INSTRUCTORS I
+             JOIN TEACHES T ON (I.ID = T.INSTRUCTOR_ID)
+             JOIN SUBJECTS S ON (T.SUBJECT_ID = S.ID AND S.SUBJECT_NAME = :subject)
+             JOIN ADDRESS ADDR ON (I.ADDR_ID = ADDR.ID)
+    WHERE UPPER(NAME || INSTITUTION || DEPARTMENT) LIKE UPPER('%${searchText}%')`;
+    const bind = { subject: subject };
+    const result = await executeQuery(query, bind, {});
+    return result;
+};
+
+
 exports.getSubjectsByInstructor = async (username) => {
     const query = `SELECT SUBJECT_NAME, SUBJECT_ID
     FROM INSTRUCTORS I
