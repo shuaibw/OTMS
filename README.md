@@ -18,7 +18,7 @@ A video demo can be found [here](https://drive.google.com/file/d/1q71UoBh5sMf1lc
 
 ## Tech
 
-Dillinger uses a number of open source projects to work properly.
+Sphuron uses a number of open source projects to work properly.
 
 Backend:
 - [node.js] - evented I/O for the backend
