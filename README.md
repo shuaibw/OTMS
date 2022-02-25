@@ -1,6 +1,12 @@
 # ▁ ▂ ▄ ▅ ▆ ▇ █ Sphuron █ ▇ ▆ ▅ ▄ ▂ ▁
+___
 ## _An Online Tutor Management System_
-
+##### CSE216 Project for L2/T2 of CSE, BUET
+___
+Project members:
+ - [Anwarul Bashir Shuaib - 1805010](https://github.com/shuaibw/)
+ - [Kazi Rakibul Hasan - 1805011](https://github.com/UserSudoName/)
+ 
 Sphuron is an online platform for finding your tutor on STEM subjects.
 
 - Choose your desired subject
