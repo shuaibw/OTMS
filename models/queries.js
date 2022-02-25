@@ -130,14 +130,14 @@ exports.selectInstructorByID = async (ID) => {
     return result;
 };
 
-exports.getInstructorsBySubject = async (subject, sort) => {
+exports.getInstructorsBySubject = async (subject, sortBy) => {
     let query = `SELECT I.ID, NAME, INSTITUTION, DEPARTMENT, YEAR, EMAIL, PHONE,
     CLASSES_TAKEN, ADDR.CITY CITY, ADDR.DISTRICT DISTRICT
     FROM INSTRUCTORS I
              JOIN TEACHES T ON (I.ID = T.INSTRUCTOR_ID)
              JOIN SUBJECTS S ON (T.SUBJECT_ID = S.ID AND S.SUBJECT_NAME = :subject)
              JOIN ADDRESS ADDR ON (I.ADDR_ID = ADDR.ID)`;
-    if (sort) query = query + ` ORDER BY NAME`;
+    if (sortBy) query = query + ` ORDER BY ${sortBy}`;
     const bind = { subject: subject };
     const result = await executeQuery(query, bind, {});
     return result;
@@ -311,6 +311,5 @@ exports.updateInstructorPassword = async (iid, password) => {
     WHERE ID = :iid`;
     const binds = { iid: iid, password: password };
     const result = await executeQuery(query, binds, {});
-    console.log("🚀 ~ file: queries.js ~ line 314 ~ exports.updateInstructorPassword= ~ result", result)
-    
+    console.log('🚀 ~ file: queries.js ~ line 314 ~ exports.updateInstructorPassword= ~ result', result);
 };

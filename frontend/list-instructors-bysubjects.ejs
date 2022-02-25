@@ -17,7 +17,14 @@
         </div>
         <ul class="nav navbar-nav">
           <li class="active"><a href="/home">Home</a></li>
-          <li><a href=<%=`/${subject.toLowerCase()}/instructors/sort`%>>Sort</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sort By<span class="caret"></span></a>
+             <ul class="dropdown-menu" role="menu">
+                <li><a href=<%=`/${subject.toLowerCase()}/instructors/sortby_NAME`%>>Name</a></li>
+                <li><a href=<%=`/${subject.toLowerCase()}/instructors/sortby_INSTITUTION`%>>Institution</a></li>
+                <li><a href=<%=`/${subject.toLowerCase()}/instructors/sortby_DEPARTMENT`%>>Department</a></li>
+             </ul>
+         </li>
           <li><a href=<%=`/${subject.toLowerCase()}/uploads`%>>Materials</a></li>
         </ul>
         <form class="navbar-form navbar-left" action="/home">
