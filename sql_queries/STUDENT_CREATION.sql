@@ -17,3 +17,4 @@ CREATE TABLE STUDENTS (
 CHECK ( CLASSES_ATTENDED >= 0 ) 
 );
 alter table students add foreign key (addr_id) references address(id);
+alter table students add constraint std_username_unique unique (username); 
