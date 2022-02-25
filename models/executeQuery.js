@@ -6,9 +6,9 @@ let connection;
 const executeQuery = async (query, binds, options) => {
     if (!connection) {
         connection = await oracledb.getConnection({
-            user: 'C##SHUAIB',
-            password: 'hr',
-            connectionString: 'localhost/orcl',
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            connectionString: process.env.DB_CONNSTR,
         });
     }
     try {

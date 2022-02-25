@@ -1,3 +1,4 @@
+require('dotenv').config();
 const morgan = require('morgan');
 const express = require('express');
 const multer = require('multer');
@@ -27,7 +28,7 @@ app.use(morgan('dev'));
 app.use(flash());
 app.use(
     session({
-        secret: 'ABCDEFG',
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         // cookie: { maxAge: 10000 }, yebboy
