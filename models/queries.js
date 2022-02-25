@@ -279,3 +279,38 @@ exports.addLinkToBooking = async (booking_id, link) => {
     const binds = { link: link, booking_id: booking_id };
     return await executeQuery(query, binds, {});
 };
+
+exports.updateInstructorAddress = async (iid, city, district) => {
+    return await executeQuery(query, binds, {});
+};
+
+exports.updateInstructorProfile = async (iid, profileData) => {
+    const queryInfo = `UPDATE INSTRUCTORS
+    SET NAME = :fullname, EMAIL = :email, PHONE = :phone, INSTITUTION = :institution, DEPARTMENT = :department 
+    WHERE ID = :iid`;
+    const bindsInfo = {
+        iid: iid,
+        fullname: profileData.fullname,
+        email: profileData.email,
+        phone: profileData.phone,
+        institution: profileData.institution,
+        department: profileData.department,
+    };
+    const queryAddr = `UPDATE ADDRESS
+    SET CITY = :city, district = :district
+    WHERE ID = (SELECT ADDR_ID FROM INSTRUCTORS WHERE ID = :iid)`;
+    const bindsAddr = { iid: iid, city: profileData.city, district: profileData.district };
+    const resultInfo = await executeQuery(queryInfo, bindsInfo, {});
+    const resultAddr = await executeQuery(queryAddr, bindsAddr, {});
+};
+
+exports.updateInstructorPassword = async (iid, password) => {
+    const hashedPwd = await bcrypt.hash(password, 10);
+    const query = `UPDATE INSTRUCTORS
+    SET PASSWORD = :password
+    WHERE ID = :iid`;
+    const binds = { iid: iid, password: password };
+    const result = await executeQuery(query, binds, {});
+    console.log("🚀 ~ file: queries.js ~ line 314 ~ exports.updateInstructorPassword= ~ result", result)
+    
+};

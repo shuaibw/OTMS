@@ -12,6 +12,7 @@ const subjectRouter = require('./routes/subjectRoutes');
 const bookRouter = require('./routes/bookRoutes');
 const viewBookRoutes = require('./routes/viewBookingRoutes');
 const matUploadRouter = require('./routes/uploadMatRoutes');
+const updateProfileRouter = require('./routes/updateProfileRoutes');
 const initializePassport = require('./controller/passport-config');
 initializePassport(passport);
 
@@ -42,6 +43,7 @@ app.use(subjectRouter);
 app.use('/bookings', viewBookRoutes);
 app.use('/logout', logoutRouter);
 app.use('/upload', matUploadRouter);
+app.use('/update', updateProfileRouter);
 
 app.listen(3000, () => {
     console.log('Server listeing at 3000');

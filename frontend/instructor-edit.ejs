@@ -51,7 +51,7 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link px-2" href=""><i class="fa fa-fw fa-th mr-1"></i><span>Upload</span></a>
+                  <a class="nav-link px-2" href="/upload"><i class="fa fa-fw fa-th mr-1"></i><span>Upload</span></a>
                 </li>
               </ul>
             </div>
@@ -93,7 +93,7 @@
                     </ul>
                     <div class="tab-content pt-3">
                       <div class="tab-pane active">
-                        <form class="form" novalidate="">
+                        <form class="form" action="/update/instructor/info" method="POST">
                           <div class="row">
                             <div class="col">
                               <div class="row">
@@ -106,7 +106,13 @@
                                 <div class="col">
                                   <div class="form-group">
                                     <label>Username</label>
-                                    <input class="form-control" type="text" name="username" value="<%=USERNAME%>" disabled/>
+                                    <input
+                                      class="form-control"
+                                      type="text"
+                                      name="username"
+                                      value="<%=USERNAME%>"
+                                      disabled
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -116,6 +122,14 @@
                                   <div class="form-group">
                                     <label>Email</label>
                                     <input class="form-control" type="text" name="email" value="<%=EMAIL%>" />
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col">
+                                  <div class="form-group">
+                                    <label>Phone</label>
+                                    <input class="form-control" type="text" name="phone" value="<%=PHONE%>" />
                                   </div>
                                 </div>
                               </div>
@@ -152,8 +166,15 @@
                                   </div>
                                 </div>
                               </div>
+                              <div class="row">
+                                <div class="col d-flex justify-content-end">
+                                  <button class="btn btn-primary" type="submit">Save Changes</button>
+                                </div>
+                              </div>
                             </div>
                           </div>
+                        </form>
+                        <form action="/update/instructor/password" method="POST">
                           <div class="row">
                             <div class="col-12 col-sm-6 mb-3">
                               <div class="mb-2"><b>Change Password</b></div>
@@ -161,7 +182,7 @@
                                 <div class="col">
                                   <div class="form-group">
                                     <label>Current Password</label>
-                                    <input class="form-control" type="password" placeholder="••••••" />
+                                    <input class="form-control" type="oldPwd" placeholder="••••••" />
                                   </div>
                                 </div>
                               </div>
@@ -169,7 +190,7 @@
                                 <div class="col">
                                   <div class="form-group">
                                     <label>New Password</label>
-                                    <input class="form-control" type="password" placeholder="••••••" />
+                                    <input class="form-control" type="newPwd" placeholder="••••••" />
                                   </div>
                                 </div>
                               </div>
@@ -177,7 +198,7 @@
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit">Save Changes</button>
+                              <button class="btn btn-primary" type="submit">Confirm</button>
                             </div>
                           </div>
                         </form>
@@ -205,7 +226,13 @@
                 <div class="card-body">
                   <h6 class="card-title font-weight-bold">Support</h6>
                   <p class="card-text">Any issues? Feel free to let us know!</p>
-                  <button type="button" class="btn btn-primary">Contact Us</button>
+                  <button
+                    type="button"
+                    onclick="location.href='mailto:anwarulbashirshuaib@gmail.com';"
+                    class="btn btn-primary"
+                  >
+                    Contact Us
+                  </button>
                 </div>
               </div>
             </div>
